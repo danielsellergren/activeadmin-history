@@ -9,3 +9,6 @@
 
 # rspec failure tracking
 .rspec_status
+
+# macOS Finder
+.DS_Store
