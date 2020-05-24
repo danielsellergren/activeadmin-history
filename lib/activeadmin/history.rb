@@ -8,10 +8,13 @@ module ActiveAdmin
 
     def self.included(dsl)
       dsl.controller do
-        puts "Inside the controller."
-        def update
-          puts "Inside the update action."
-          super
+        before_action :create_admin_action, only: [:create, :update, :destroy]
+
+        def create_admin_action
+          ::ActiveAdmin::History::AdminAction.create(
+            admin_user_id: current_admin_user.id,
+            action: params[:action],
+          )
         end
       end
     end
