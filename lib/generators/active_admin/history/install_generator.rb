@@ -9,6 +9,7 @@ module ActiveAdmin
 
         def copy_migration
           migration_template "admin_action_migration.rb", "db/migrate/create_admin_actions.rb", migration_version: migration_version
+          template "admin_action_register.rb", "admin/admin_actions.rb"
         end
 
         def migration_version
