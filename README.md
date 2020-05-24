@@ -22,7 +22,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run the installer from the Rails project to create the needed files, then migrate.
+
+    rails generate active_admin:history:install
 
 ## Development
 
