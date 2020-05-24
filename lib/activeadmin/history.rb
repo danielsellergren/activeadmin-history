@@ -11,7 +11,7 @@ module ActiveAdmin
         before_action :create_admin_action, only: [:create, :update, :destroy]
 
         def create_admin_action
-          ::ActiveAdmin::History::AdminAction.create(
+          ::AdminAction.create(
             admin_user_id: current_admin_user.id,
             action: params[:action],
           )
