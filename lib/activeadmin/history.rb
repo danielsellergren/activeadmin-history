@@ -1,8 +1,19 @@
 require "activeadmin/history/version"
 
-module Activeadmin
+module ActiveAdmin
   module History
+    extend ActiveSupport::Concern
+
     class Error < StandardError; end
-    # Your code goes here...
+
+    def self.included(dsl)
+      dsl.controller do
+        puts "Inside the controller."
+        def update
+          puts "Inside the update action."
+          super
+        end
+      end
+    end
   end
 end
