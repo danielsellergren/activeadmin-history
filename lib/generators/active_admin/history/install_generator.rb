@@ -8,8 +8,9 @@ module ActiveAdmin
         source_root File.join(__dir__, "templates")
 
         def copy_migration
-          migration_template "admin_action_migration.rb", "db/migrate/create_admin_actions.rb", migration_version: migration_version
+          template "admin_action_model.rb", "app/models/admin_action.rb"
           template "admin_action_register.rb", "admin/admin_actions.rb"
+          migration_template "admin_action_migration.rb", "db/migrate/create_admin_actions.rb", migration_version: migration_version
         end
 
         def migration_version
