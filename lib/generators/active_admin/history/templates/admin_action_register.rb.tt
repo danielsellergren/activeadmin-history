@@ -1,2 +1,16 @@
 ActiveAdmin.register AdminAction do
+  index do
+    column 'ID', :id
+    column 'Admin', :admin_user_id do |a|
+      link_to a.admin_user.email, admin_admin_user_path(a.admin_user)
+    end
+    column 'Action', :action do |a|
+      a.action.humanize
+    end
+    column 'Object', :object_id do |o|
+      link_to o.object_type, send("admin_#{o.object_type.constantize.table_name}_path", o)
+    end
+    column 'Params', :object_params
+    actions
+  end
 end
