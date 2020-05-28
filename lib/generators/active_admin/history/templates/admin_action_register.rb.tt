@@ -13,7 +13,15 @@ ActiveAdmin.register AdminAction do
       end
     end
     column 'Params', :object_params
-    column 'Diff', :object_diff
+    column 'Diff', :object_diff do |o|
+      formatted = ''
+      if o.object_diff
+        o.object_diff.each do |k, v|
+          formatted << "#{k}: #{v[0]} => #{v[1]}<br/>"
+        end
+      end
+      formatted.html_safe
+    end
     column 'Performed', :created_at
     actions
   end
