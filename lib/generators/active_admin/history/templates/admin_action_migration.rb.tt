@@ -2,10 +2,11 @@ class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version
   def change
     create_table :admin_actions do |t|
       t.string :admin_user_id, default: false, null: false
-      t.bigint :object_id, null: false
-      t.string :object_type, null: false
+      t.bigint :object_id
+      t.string :object_type
       t.string :action, null: false
-      t.jsonb :object_params
+      t.jsonb :object_params, default: {}
+      t.jsonb :object_diff, default: {}
       
       t.timestamps
     end

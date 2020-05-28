@@ -8,9 +8,13 @@ ActiveAdmin.register AdminAction do
       a.action.humanize
     end
     column 'Object', :object_id do |o|
-      link_to o.object_type, send("admin_#{o.object_type.constantize.table_name}_path", o)
+      if o.object_type
+        link_to o.object_type, send("admin_#{o.object_type.constantize.table_name.singularize}_path", o)
+      end
     end
     column 'Params', :object_params
+    column 'Diff', :object_diff
+    column 'Performed', :created_at
     actions
   end
 end
