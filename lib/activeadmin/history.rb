@@ -24,8 +24,8 @@ module ActiveAdmin
           @admin_action = ::AdminAction.create(
             admin_user_id: @admin_user_id,
             action: @action,
-            object_params: @param_attributes,
-            object_diff: @object_diff,
+            object_params: ActiveSupport::JSON.encode(@param_attributes),
+            object_diff: ActiveSupport::JSON.encode(@object_diff),
           )
         end
 

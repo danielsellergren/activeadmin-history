@@ -14,11 +14,11 @@ ActiveAdmin.register AdminAction do
     end
     column 'Params', :object_params
     column 'Diff', :object_diff do |o|
+      decoded = ActiveSupport::JSON.decode(o.object_diff)
       formatted = ''
-      if o.object_diff
-        o.object_diff.each do |k, v|
-          formatted << "#{k}: #{v[0]} => #{v[1]}<br/>"
-        end
+      
+      decoded&.each do |k, v|
+        formatted << "#{k}: #{v[0]} => #{v[1]}<br/>"
       end
       formatted.html_safe
     end

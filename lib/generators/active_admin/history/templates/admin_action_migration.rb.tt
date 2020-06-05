@@ -5,8 +5,8 @@ class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version
       t.bigint :object_id
       t.string :object_type
       t.string :action, null: false
-      t.jsonb :object_params, default: {}
-      t.jsonb :object_diff, default: {}
+      t.string :object_params
+      t.string :object_diff
       
       t.timestamps
     end
