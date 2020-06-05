@@ -1,4 +1,6 @@
 ActiveAdmin.register AdminAction do
+  actions :index, :show
+
   index do
     column 'ID', :id
     column 'Admin', :admin_user_id do |a|
@@ -9,20 +11,49 @@ ActiveAdmin.register AdminAction do
     end
     column 'Object', :object_id do |o|
       if o.object_type
-        link_to o.object_type, send("admin_#{o.object_type.constantize.table_name.singularize}_path", o)
+        link_to o.object_type, send("admin_#{o.object_type.constantize.table_name.singularize}_path", o.object_id)
       end
     end
-    column 'Params', :object_params
-    column 'Diff', :object_diff do |o|
+    column 'Diffs', :object_diff do |o|
       decoded = ActiveSupport::JSON.decode(o.object_diff)
-      formatted = ''
-      
-      decoded&.each do |k, v|
-        formatted << "#{k}: #{v[0]} => #{v[1]}<br/>"
-      end
-      formatted.html_safe
+      decoded.nil? ? 0 : decoded.size
     end
     column 'Performed', :created_at
     actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row 'Admin', :admin_user_id do |a|
+        link_to a.admin_user.email, admin_admin_user_path(a.admin_user)
+      end
+      row 'Action', :action do |a|
+        a.action.humanize
+      end
+      row 'Object', :object_id do |o|
+        if o.object_type
+          link_to o.object_type, send("admin_#{o.object_type.constantize.table_name.singularize}_path", o.object_id)
+        end
+      end
+      row 'Performed', :created_at do |p|
+        p.created_at
+      end
+      row :object_diff do |od|
+        decoded = ActiveSupport::JSON.decode(od.object_diff)
+        formatted = '<table><tbody>'
+        
+        decoded&.each do |k, v|
+          formatted << "<tr><td>#{k}</strong></td><td><span style=\"color: red;\">#{v[0]}</span></td><td><span style=\"color: green;\">#{v[1]}</span></td></tr>"
+        end
+
+        formatted << '</tbody></table>'
+        formatted.html_safe
+      end
+      row :object_params do |op|
+        "<pre>#{JSON.pretty_generate(ActiveSupport::JSON.decode(op.object_params))}</pre>".html_safe
+      end
+    end
+    active_admin_comments
   end
 end
