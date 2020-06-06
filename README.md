@@ -1,8 +1,10 @@
-# Activeadmin::History
+# ActiveAdmin::History
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/activeadmin/history`. To experiment with that code, run `bin/console` for an interactive prompt.
+ActiveAdmin::History maintains a list of `create`, `update`, and `destroy` actions performed by AdminUsers in the ActiveAdmin interface. The account performing the action is logged, the parameters are stored, and a set of diffs is produced (in the case of an `update`).
 
-TODO: Delete this and the text above, and describe your gem
+If you would prefer to log all changes to a record instead of just the ones performed in ActiveAdmin, we recommend [PaperTrail](https://github.com/paper-trail-gem/paper_trail) which operates on the models themselves rather than on ActiveAdmin controllers.
+
+This gem is in very early alpha and will likely change significantly. Right now it works well on a default installation of Rails 6 and ActiveAdmin. Feel free to open issues for any problems you find and suggestions for improvements are always welcome.
 
 ## Installation
 
